@@ -14,6 +14,7 @@ class DateExtensions {
         internal val HOURS_AND_MINS_FORMAT = SimpleDateFormat("HH:mm", Locale.getDefault())
         internal val DEFAULT_FORMAT = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
+        @JvmStatic
         fun createDate(year: Int, month: Int, day: Int): Date {
             val calendar = Calendar.getInstance()
             calendar.set(year, month, day)
