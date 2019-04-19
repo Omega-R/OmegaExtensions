@@ -1,4 +1,4 @@
-package omega_r.com.extensions
+package omega_r.com.extensions.simple
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
