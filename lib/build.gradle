@@ -22,10 +22,6 @@ android {
         }
     }
 
-    packagingOptions {
-        exclude 'META-INF/lib_release.kotlin_module'
-    }
-
 }
 
 dependencies {
