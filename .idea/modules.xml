@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/OmegaExtensions.iml" filepath="$PROJECT_DIR$/.idea/OmegaExtensions.iml" />
       <module fileurl="file://$PROJECT_DIR$/OmegaExtensions.iml" filepath="$PROJECT_DIR$/OmegaExtensions.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/extensionslib/extensionslib.iml" filepath="$PROJECT_DIR$/extensionslib/extensionslib.iml" />
       <module fileurl="file://$PROJECT_DIR$/extensionslib/extensionslib.iml" filepath="$PROJECT_DIR$/extensionslib/extensionslib.iml" />
     </modules>
   </component>

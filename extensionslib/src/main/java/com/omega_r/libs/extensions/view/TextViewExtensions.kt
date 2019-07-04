@@ -10,6 +10,8 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
+import androidx.core.widget.TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds
 import com.omega_r.libs.extensions.context.getCompatColor
 
 fun TextView.addTextListener(
@@ -150,6 +152,10 @@ var TextView.drawableLeft: Drawable?
         setCompoundDrawablesWithIntrinsicBounds(value, drawables[1], drawables[2], drawables[3])
     }
 
+fun TextView.setDrawableLeft(drawableRes: Int) {
+    drawableLeft = ContextCompat.getDrawable(context, drawableRes)
+}
+
 var TextView.drawableStart: Drawable?
     get() = (if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) compoundDrawablesRelative[0] else compoundDrawables[0])
     set(value) {
@@ -165,12 +171,20 @@ var TextView.drawableStart: Drawable?
         }
     }
 
+fun TextView.setDrawableStart(drawableRes: Int) {
+    drawableStart = ContextCompat.getDrawable(context, drawableRes)
+}
+
 var TextView.drawableRight: Drawable?
     get() = compoundDrawables[2]
     set(value) {
         val drawables = compoundDrawables
         setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], value, drawables[3])
     }
+
+fun TextView.setDrawableRight(drawableRes: Int) {
+    drawableRight = ContextCompat.getDrawable(context, drawableRes)
+}
 
 var TextView.drawableEnd: Drawable?
     get() = (if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) compoundDrawablesRelative[2] else compoundDrawables[2])
@@ -188,6 +202,10 @@ var TextView.drawableEnd: Drawable?
         }
     }
 
+fun TextView.setDrawableEnd(drawableRes: Int) {
+    drawableEnd = ContextCompat.getDrawable(context, drawableRes)
+}
+
 var TextView.drawableTop: Drawable?
     get() = (if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) compoundDrawablesRelative[1] else compoundDrawables[1])
     set(value) {
@@ -203,6 +221,10 @@ var TextView.drawableTop: Drawable?
         }
     }
 
+fun TextView.setDrawableTop(drawableRes: Int) {
+    drawableTop = ContextCompat.getDrawable(context, drawableRes)
+}
+
 var TextView.drawableBottom: Drawable?
     get() = (if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) compoundDrawablesRelative[3] else compoundDrawables[3])
     set(value) {
@@ -217,6 +239,10 @@ var TextView.drawableBottom: Drawable?
             setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], value)
         }
     }
+
+fun TextView.setDrawableBottom(drawableRes: Int) {
+    drawableBottom = ContextCompat.getDrawable(context, drawableRes)
+}
 
 fun TextView.removeCompoundDrawables() {
     setCompoundDrawables(null, null, null, null)
