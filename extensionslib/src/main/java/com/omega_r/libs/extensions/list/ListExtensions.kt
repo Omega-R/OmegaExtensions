@@ -9,3 +9,5 @@ fun <T> List<T>.contains(vararg values: T): Boolean {
     }
     return counter == values.size
 }
+
+fun <T> List<T>.toArrayList() = ArrayList(this)
