@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.util.TypedValue
+import androidx.annotation.AttrRes
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
@@ -24,3 +26,8 @@ fun Context.getCompatColor(@ColorRes id: Int): Int {
     return ContextCompat.getColor(this, id)
 }
 
+fun Context.getColorByAttribute(@AttrRes attrInt: Int): Int {
+    return TypedValue().run {
+        if (theme.resolveAttribute(attrInt, this, true)) data else 0
+    }
+}
