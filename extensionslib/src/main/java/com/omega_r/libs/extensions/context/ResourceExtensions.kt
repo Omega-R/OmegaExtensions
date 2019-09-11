@@ -2,6 +2,7 @@ package com.omega_r.libs.extensions.context
 
 import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.TypedValue
@@ -17,9 +18,7 @@ fun Context.getCompatDrawable(@DrawableRes id: Int): Drawable? {
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 fun Context.getAnimatedVectorDrawable(@DrawableRes res: Int): AnimatedVectorDrawable? {
-    val drawable = getCompatDrawable(res)
-    if (drawable == null || drawable !is AnimatedVectorDrawable) return null
-    return drawable
+    return getCompatDrawable(res) as? AnimatedVectorDrawable
 }
 
 fun Context.getCompatColor(@ColorRes id: Int): Int {
@@ -30,4 +29,8 @@ fun Context.getColorByAttribute(@AttrRes attrInt: Int): Int {
     return TypedValue().run {
         if (theme.resolveAttribute(attrInt, this, true)) data else 0
     }
+}
+
+fun Context.getColorDrawableByAttribute(@AttrRes attrInt: Int): ColorDrawable {
+    return ColorDrawable(getColorByAttribute(attrInt))
 }
