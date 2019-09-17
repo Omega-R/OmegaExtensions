@@ -57,4 +57,3 @@ fun String?.addPartNames(vararg partNames: String?): String? {
     return result
 }
 
-fun String?.fullname(vararg names: String?) = addPartNames(*names)
