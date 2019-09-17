@@ -36,3 +36,23 @@ fun String.fromHtml(): Spanned {
         Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
     }
 }
+
+fun String?.addPartName(partName: String?): String? {
+    var result = this
+    if (!partName.isNullOrBlank()) {
+        if (!result.isNullOrEmpty()) {
+            result += " $partName"
+        } else {
+            result = partName
+        }
+    }
+    return result
+}
+
+fun String?.addPartNames(vararg partNames: String?): String? {
+    var result: String? = this
+    for (partName in partNames) {
+        result = result.addPartName(partName)
+    }
+    return result
+}
