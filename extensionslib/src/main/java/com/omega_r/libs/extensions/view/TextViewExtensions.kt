@@ -120,8 +120,8 @@ fun TextView.addLinkCallback(needUnderline: Boolean = true, callback: LinkCallba
             val end = text.getSpanEnd(annotation)
 
             spannableString.setSpan(object : ClickableSpan() {
-                override fun onClick(widget: View?) {
-                    widget?.post { widget.invalidate() } // Fix bug with background
+                override fun onClick(widget: View) {
+                    widget.post { widget.invalidate() } // Fix bug with background
                     callback.onLinkClick(annotation.value)
                 }
 
