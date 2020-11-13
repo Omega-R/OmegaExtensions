@@ -11,28 +11,44 @@ import kotlin.time.toDuration
 
 fun CoroutineScope.launchWithTicker(
     ticksCount: Int,
-    durationUnit: DurationUnit,
+    tickDurationMillis: Long,
     onTick: suspend (Int) -> Unit,
     onEnd: (suspend () -> Unit)? = null,
     initialDelayMillis: Long = 0,
 ): ReceiveChannel<Unit> {
     val tickerChannel = ticker(
-        ticksCount.toDuration(durationUnit).toLongMilliseconds(),
+        tickDurationMillis,
         initialDelayMillis
     )
     launch {
         var currentTick = 0
         for (event in tickerChannel) {
-            if (currentTick >= ticksCount) {
+            onTick(currentTick)
+            if (currentTick == ticksCount) {
                 onEnd?.invoke()
                 tickerChannel.cancel()
                 break
             }
-            onTick(currentTick)
             currentTick++
         }
     }
     return tickerChannel
+}
+
+fun CoroutineScope.launchWithTicker(
+    ticksCount: Int,
+    tickDuration: Duration,
+    onTick: suspend (Int) -> Unit,
+    onEnd: (suspend () -> Unit)? = null,
+    initialDelay: Duration = Duration.ZERO,
+): ReceiveChannel<Unit> {
+    return launchWithTicker(
+        ticksCount = ticksCount,
+        tickDurationMillis = tickDuration.toLongMilliseconds(),
+        onTick = onTick,
+        onEnd = onEnd,
+        initialDelayMillis = initialDelay.toLongMilliseconds()
+    )
 }
 
 fun CoroutineScope.launchDelayed(delayMillis: Long, action: suspend () -> Unit) {
