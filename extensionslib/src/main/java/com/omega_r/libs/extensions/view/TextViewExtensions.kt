@@ -146,7 +146,7 @@ fun TextView.addLinkCallback(needUnderline: Boolean = true, callback: LinkCallba
 }
 
 fun TextView.setTextColorResource(@ColorRes colorRes: Int) {
-    setTextColor(context.getCompatColor(colorRes))
+    setTextColor(getCompatColor(colorRes))
 }
 
 private fun TextView.getDrawableRelative(index: Int): Drawable? {
@@ -186,7 +186,7 @@ var TextView.drawableLeft: Drawable?
     set(value) = setDrawable(0, value)
 
 fun TextView.setDrawableLeft(drawableRes: Int) {
-    drawableLeft = ContextCompat.getDrawable(context, drawableRes)
+    drawableLeft = getCompatDrawable(drawableRes)
 }
 
 var TextView.drawableStart: Drawable?
@@ -194,7 +194,7 @@ var TextView.drawableStart: Drawable?
     set(value) = setDrawableRelative(0, value)
 
 fun TextView.setDrawableStart(drawableRes: Int) {
-    drawableStart = ContextCompat.getDrawable(context, drawableRes)
+    drawableStart = getCompatDrawable(drawableRes)
 }
 
 var TextView.drawableRight: Drawable?
@@ -202,7 +202,7 @@ var TextView.drawableRight: Drawable?
     set(value) = setDrawableRelative(2, value)
 
 fun TextView.setDrawableRight(drawableRes: Int) {
-    drawableRight = ContextCompat.getDrawable(context, drawableRes)
+    drawableRight = getCompatDrawable(drawableRes)
 }
 
 var TextView.drawableEnd: Drawable?
@@ -210,7 +210,7 @@ var TextView.drawableEnd: Drawable?
     set(value) = setDrawableRelative(2, value)
 
 fun TextView.setDrawableEnd(drawableRes: Int) {
-    drawableEnd = ContextCompat.getDrawable(context, drawableRes)
+    drawableEnd = getCompatDrawable(drawableRes)
 }
 
 var TextView.drawableTop: Drawable?
@@ -218,7 +218,7 @@ var TextView.drawableTop: Drawable?
     set(value) = setDrawableRelative(1, value)
 
 fun TextView.setDrawableTop(drawableRes: Int) {
-    drawableTop = ContextCompat.getDrawable(context, drawableRes)
+    drawableTop = getCompatDrawable(drawableRes)
 }
 
 var TextView.drawableBottom: Drawable?
@@ -226,7 +226,7 @@ var TextView.drawableBottom: Drawable?
     set(value) = setDrawableRelative(3, value)
 
 fun TextView.setDrawableBottom(drawableRes: Int) {
-    drawableBottom = ContextCompat.getDrawable(context, drawableRes)
+    drawableBottom = getCompatDrawable(drawableRes)
 }
 
 fun TextView.removeCompoundDrawables() {

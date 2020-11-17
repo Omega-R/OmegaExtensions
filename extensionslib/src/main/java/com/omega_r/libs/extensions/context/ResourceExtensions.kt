@@ -12,25 +12,30 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 
-fun Context.getCompatDrawable(@DrawableRes id: Int): Drawable? {
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.getCompatDrawable(@DrawableRes id: Int): Drawable? {
     return ContextCompat.getDrawable(this, id)
 }
 
+@Suppress("NOTHING_TO_INLINE")
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-fun Context.getAnimatedVectorDrawable(@DrawableRes res: Int): AnimatedVectorDrawable? {
+inline fun Context.getAnimatedVectorDrawable(@DrawableRes res: Int): AnimatedVectorDrawable? {
     return getCompatDrawable(res) as? AnimatedVectorDrawable
 }
 
-fun Context.getCompatColor(@ColorRes id: Int): Int {
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.getCompatColor(@ColorRes id: Int): Int {
     return ContextCompat.getColor(this, id)
 }
 
-fun Context.getColorByAttribute(@AttrRes attrInt: Int): Int {
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.getColorByAttribute(@AttrRes attrInt: Int): Int {
     return TypedValue().run {
         if (theme.resolveAttribute(attrInt, this, true)) data else 0
     }
 }
 
-fun Context.getColorDrawableByAttribute(@AttrRes attrInt: Int): ColorDrawable {
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.getColorDrawableByAttribute(@AttrRes attrInt: Int): ColorDrawable {
     return ColorDrawable(getColorByAttribute(attrInt))
 }
