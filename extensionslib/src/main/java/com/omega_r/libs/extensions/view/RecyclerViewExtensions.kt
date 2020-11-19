@@ -80,10 +80,6 @@ fun RecyclerView.addOnScrollPositionListener(onChanged: ((firstVisiblePos: Int, 
 
 }
 
-@Suppress("NOTHING_TO_INLINE")
-inline fun RecyclerView.Adapter<*>.getCompatDrawable(@DrawableRes id: Int): Drawable? {
-    return context.getCompatDrawable(id)
-}
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun RecyclerView.ViewHolder.getCompatDrawable(@DrawableRes id: Int): Drawable? {
