@@ -7,6 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
+import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
 
 fun CoroutineScope.launchWithTicker(
@@ -35,6 +36,7 @@ fun CoroutineScope.launchWithTicker(
     return tickerChannel
 }
 
+@ExperimentalTime
 fun CoroutineScope.launchWithTicker(
     ticksCount: Int,
     tickDuration: Duration,
@@ -58,6 +60,7 @@ fun CoroutineScope.launchDelayed(delayMillis: Long, action: suspend () -> Unit) 
     }
 }
 
+@ExperimentalTime
 fun CoroutineScope.launchDelayed(delayDuration: Duration, action: suspend () -> Unit) {
     launch {
         delay(delayDuration)
