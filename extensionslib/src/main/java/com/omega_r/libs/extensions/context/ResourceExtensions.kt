@@ -39,3 +39,10 @@ inline fun Context.getColorByAttribute(@AttrRes attrInt: Int): Int {
 inline fun Context.getColorDrawableByAttribute(@AttrRes attrInt: Int): ColorDrawable {
     return ColorDrawable(getColorByAttribute(attrInt))
 }
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.getDrawableByAttribute(@AttrRes attrInt: Int): Drawable? {
+    return TypedValue().run {
+        if (theme.resolveAttribute(attrInt, this, true)) getCompatDrawable(data) else null
+    }
+}
