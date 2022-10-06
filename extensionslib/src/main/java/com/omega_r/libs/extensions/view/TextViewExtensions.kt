@@ -1,7 +1,8 @@
 package com.omega_r.libs.extensions.view
 
 import android.graphics.drawable.Drawable
-import android.os.Build.*
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.text.*
 import android.text.Annotation
 import android.text.method.LinkMovementMethod
@@ -10,6 +11,7 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import com.omega_r.libs.extensions.context.getCompatColor
 
 fun TextView.addTextListener(
@@ -56,7 +58,11 @@ fun TextView.addDebounceTextListener(
     })
 }
 
-fun TextView.addDebounceChangeStateListener(delayInMillis: Long = 500, timeoutInMillis: Long = 0, listener: (Boolean) -> Unit) {
+fun TextView.addDebounceChangeStateListener(
+    delayInMillis: Long = 500,
+    timeoutInMillis: Long = 0,
+    listener: (Boolean) -> Unit
+) {
     addTextChangedListener(object : TextWatcher {
         private var start: Boolean = false
         private val runnable: Runnable = Runnable {
@@ -114,8 +120,8 @@ fun TextView.addLinkCallback(needUnderline: Boolean = true, callback: LinkCallba
             val end = text.getSpanEnd(annotation)
 
             spannableString.setSpan(object : ClickableSpan() {
-                override fun onClick(widget: View?) {
-                    widget?.post { widget.invalidate() } // Fix bug with background
+                override fun onClick(widget: View) {
+                    widget.post { widget.invalidate() } // Fix bug with background
                     callback.onLinkClick(annotation.value)
                 }
 
@@ -140,83 +146,88 @@ fun TextView.addLinkCallback(needUnderline: Boolean = true, callback: LinkCallba
 }
 
 fun TextView.setTextColorResource(@ColorRes colorRes: Int) {
-    setTextColor(context.getCompatColor(colorRes))
+    setTextColor(getCompatColor(colorRes))
+}
+
+private fun TextView.getDrawableRelative(index: Int): Drawable? {
+    val drawables =
+        if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) compoundDrawablesRelative else compoundDrawables
+    return drawables[index]
+}
+
+private fun TextView.setDrawableRelative(index: Int, drawable: Drawable?) {
+    val drawables =
+        if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) compoundDrawablesRelative else compoundDrawables
+
+    drawables[index] = drawable
+
+    if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
+        setCompoundDrawablesRelativeWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], drawables[3])
+    } else {
+        setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], drawables[3])
+    }
+}
+
+private fun TextView.getDrawable(index: Int): Drawable? {
+    val drawables = compoundDrawables
+    return drawables[index]
+}
+
+private fun TextView.setDrawable(index: Int, drawable: Drawable?) {
+    val drawables = compoundDrawables
+
+    drawables[index] = drawable
+
+    setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], drawables[3])
 }
 
 var TextView.drawableLeft: Drawable?
-    get() = compoundDrawables[0]
-    set(value) {
-        val drawables = compoundDrawables
-        setCompoundDrawablesWithIntrinsicBounds(value, drawables[1], drawables[2], drawables[3])
-    }
+    get() = getDrawable(0)
+    set(value) = setDrawable(0, value)
+
+fun TextView.setDrawableLeft(drawableRes: Int) {
+    drawableLeft = getCompatDrawable(drawableRes)
+}
 
 var TextView.drawableStart: Drawable?
-    get() = (if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) compoundDrawablesRelative[0] else compoundDrawables[0])
-    set(value) {
-        val drawables = if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-            compoundDrawablesRelative
-        } else {
-            compoundDrawables
-        }
-        if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-            setCompoundDrawablesRelativeWithIntrinsicBounds(value, drawables[1], drawables[2], drawables[3])
-        } else {
-            setCompoundDrawablesWithIntrinsicBounds(value, drawables[1], drawables[2], drawables[3])
-        }
-    }
+    get() = getDrawableRelative(0)
+    set(value) = setDrawableRelative(0, value)
+
+fun TextView.setDrawableStart(drawableRes: Int) {
+    drawableStart = getCompatDrawable(drawableRes)
+}
 
 var TextView.drawableRight: Drawable?
-    get() = compoundDrawables[2]
-    set(value) {
-        val drawables = compoundDrawables
-        setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], value, drawables[3])
-    }
+    get() = getDrawable(2)
+    set(value) = setDrawableRelative(2, value)
+
+fun TextView.setDrawableRight(drawableRes: Int) {
+    drawableRight = getCompatDrawable(drawableRes)
+}
 
 var TextView.drawableEnd: Drawable?
-    get() = (if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) compoundDrawablesRelative[2] else compoundDrawables[2])
-    set(value) {
-        val drawables = if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-            compoundDrawablesRelative
-        } else {
-            compoundDrawables
-        }
+    get() = getDrawableRelative(2)
+    set(value) = setDrawableRelative(2, value)
 
-        if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-            setCompoundDrawablesRelativeWithIntrinsicBounds(drawables[0], drawables[1], value, drawables[3])
-        } else {
-            setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], value, drawables[3])
-        }
-    }
+fun TextView.setDrawableEnd(drawableRes: Int) {
+    drawableEnd = getCompatDrawable(drawableRes)
+}
 
 var TextView.drawableTop: Drawable?
-    get() = (if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) compoundDrawablesRelative[1] else compoundDrawables[1])
-    set(value) {
-        val drawables = if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-            compoundDrawablesRelative
-        } else {
-            compoundDrawables
-        }
-        if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-            setCompoundDrawablesRelativeWithIntrinsicBounds(drawables[0], value, drawables[2], drawables[3])
-        } else {
-            setCompoundDrawablesWithIntrinsicBounds(drawables[0], value, drawables[2], drawables[3])
-        }
-    }
+    get() = getDrawableRelative(1)
+    set(value) = setDrawableRelative(1, value)
+
+fun TextView.setDrawableTop(drawableRes: Int) {
+    drawableTop = getCompatDrawable(drawableRes)
+}
 
 var TextView.drawableBottom: Drawable?
-    get() = (if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) compoundDrawablesRelative[3] else compoundDrawables[3])
-    set(value) {
-        val drawables = if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-            compoundDrawablesRelative
-        } else {
-            compoundDrawables
-        }
-        if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-            setCompoundDrawablesRelativeWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], value)
-        } else {
-            setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], value)
-        }
-    }
+    get() = getDrawableRelative(3)
+    set(value) = setDrawableRelative(3, value)
+
+fun TextView.setDrawableBottom(drawableRes: Int) {
+    drawableBottom = getCompatDrawable(drawableRes)
+}
 
 fun TextView.removeCompoundDrawables() {
     setCompoundDrawables(null, null, null, null)

@@ -1,5 +1,14 @@
 package com.omega_r.libs.extensions.view
 
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.os.Build
+import android.view.View
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -69,4 +78,31 @@ fun RecyclerView.addOnScrollPositionListener(onChanged: ((firstVisiblePos: Int, 
         }
     })
 
+}
+
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun RecyclerView.ViewHolder.getCompatDrawable(@DrawableRes id: Int): Drawable? {
+    return itemView.getCompatDrawable(id)
+}
+
+@Suppress("NOTHING_TO_INLINE")
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+inline fun RecyclerView.ViewHolder.getAnimatedVectorDrawable(@DrawableRes res: Int): AnimatedVectorDrawable? {
+    return itemView.getAnimatedVectorDrawable(res)
+}
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun RecyclerView.ViewHolder.getCompatColor(@ColorRes id: Int): Int {
+    return itemView.getCompatColor(id)
+}
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun RecyclerView.ViewHolder.getColorByAttribute(@AttrRes attrInt: Int): Int {
+    return itemView.getColorByAttribute(attrInt)
+}
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun RecyclerView.ViewHolder.getColorDrawableByAttribute(@AttrRes attrInt: Int): ColorDrawable {
+    return itemView.getColorDrawableByAttribute(attrInt)
 }
