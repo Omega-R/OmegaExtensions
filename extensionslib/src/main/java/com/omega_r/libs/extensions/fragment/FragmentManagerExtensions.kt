@@ -11,7 +11,6 @@ inline fun FragmentManager.edit(
     beginTransaction()
         .apply(block)
         .apply {
-            commitAllowingStateLoss()
             if (commitNow) {
                 if (allowingStateLoss) {
                     commitNowAllowingStateLoss()
